@@ -1,17 +1,12 @@
 import Sequelize from "sequelize";
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "../constants/secrets.js";
 
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, DB_PORT, {
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   port: DB_PORT,
   dialect: "postgres",
   quoteIdentifiers: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejecUnauthorized: false
-    }
-  },
+  dialectOptions: { ssl: { require: true, rejectUnauthorized: false} },
   define: {
     syncOnAssociation: true,
     timestamps: false,
@@ -21,7 +16,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, DB_PORT, {
   },
   pool: {
     acquire: 180000,
-  }
+  },
 });
 
 sequelize
